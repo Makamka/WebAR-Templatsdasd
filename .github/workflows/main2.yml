@@ -1,0 +1,26 @@
+name: Check Data Schema Code Convention
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  check-schema:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Check SQL or JSON file code conventions
+        run: |
+          if [ -f "DataSchema.sql" ]; then
+            echo "Checking SQL file for code conventions"
+            sqlfluff lint DataSchema.sql
+          elif [ -f "DataSchema.json" ]; then
+            echo "Checking JSON file for code conventions"
+            jsonlint -v DataSchema.json
+          else
+            echo "No DataSchema.sql or DataSchema.json file found"
+            exit 1
+          fi
