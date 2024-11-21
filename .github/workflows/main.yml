@@ -12,11 +12,16 @@ jobs:
     steps:
       - name: Print OS version
         run: uname -a
-      - name: Print Apache Tomcat version
+      - name: Check Apache Tomcat installation
         run: |
-          echo "Apache Tomcat Version:"
-          # Перевірка версії Tomcat за допомогою команди dpkg
-          dpkg-query -l | grep tomcat
+          echo "Checking for Apache Tomcat installation:"
+          if command -v tomcat7 >/dev/null 2>&1; then
+            tomcat7 -v
+          elif command -v tomcat8 >/dev/null 2>&1; then
+            tomcat8 -v
+          else
+            echo "Apache Tomcat is not installed."
+          fi
 
   # Друга робота: Доступ до даних
   print-db-server-versions:
