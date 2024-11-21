@@ -11,7 +11,8 @@ CREATE TABLE FUNCTIONAL_REQUIREMENTS (
     NAME VARCHAR(255) NOT NULL,      -- Назва функціональної вимоги
     DESCRIPTION TEXT,                -- Опис функціональної вимоги
     USE_CASE_ID INT,                 -- Зовнішній ключ на таблицю USE_CASES
-    FOREIGN KEY (USE_CASE_ID) REFERENCES USE_CASES(USE_CASE_ID)
+    FOREIGN KEY (USE_CASE_ID) 
+        REFERENCES USE_CASES(USE_CASE_ID)
 );
 
 -- Створення таблиці для зберігання інформації про користувачів
@@ -30,7 +31,8 @@ CREATE TABLE USER_SETTINGS (
     THEME VARCHAR(50),                  -- Тема інтерфейсу
     LANGUAGE VARCHAR(50),               -- Мова інтерфейсу
     LAYOUT VARCHAR(255),                -- Налаштування макету
-    FOREIGN KEY (USER_ID) REFERENCES USERS(USER_ID)
+    FOREIGN KEY (USER_ID) 
+        REFERENCES USERS(USER_ID)
 );
 
 -- Створення таблиці для зберігання журналу аутентифікації користувачів
@@ -40,5 +42,7 @@ CREATE TABLE AUTHENTICATION_LOG (
     LOGIN_TIME TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Час аутентифікації
     IP_ADDRESS VARCHAR(50),          -- IP-адреса користувача
     SUCCESS BOOLEAN,                 -- Статус аутентифікації (успішна/неуспішна)
-    FOREIGN KEY (USER_ID) REFERENCES USERS(USER_ID)
+    FOREIGN KEY (USER_ID) 
+        REFERENCES USERS(USER_ID)
 );
+
