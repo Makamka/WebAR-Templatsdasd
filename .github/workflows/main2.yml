@@ -23,7 +23,8 @@ jobs:
         run: |
           if [ -f "DataSchema.sql" ]; then
             echo "Checking SQL file for code conventions"
-            sqlfluff lint DataSchema.sql  # Перевірка на відповідність нормам кодування
+            # Вказуємо діалект PostgreSQL
+            sqlfluff lint --dialect postgres DataSchema.sql
           else
             echo "No DataSchema.sql file found!"
             exit 1
