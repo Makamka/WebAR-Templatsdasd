@@ -1,4 +1,4 @@
-name: Check Data Schema Code Convention
+name: Data Schema Code Convention Check
 
 on:
   push:
@@ -6,21 +6,25 @@ on:
       - master
 
 jobs:
-  check-schema:
+  check-sql-code-conventions:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
 
-      - name: Check SQL or JSON file code conventions
+    steps:
+      # Крок для перевірки кодування схеми даних
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install sqlfluff
+        run: |
+          python -m pip install --upgrade pip
+          pip install sqlfluff
+
+      - name: Check DataSchema.sql for code conventions
         run: |
           if [ -f "DataSchema.sql" ]; then
             echo "Checking SQL file for code conventions"
-            sqlfluff lint DataSchema.sql
-          elif [ -f "DataSchema.json" ]; then
-            echo "Checking JSON file for code conventions"
-            jsonlint -v DataSchema.json
+            sqlfluff lint DataSchema.sql  # Перевірка на відповідність нормам кодування
           else
-            echo "No DataSchema.sql or DataSchema.json file found"
+            echo "No DataSchema.sql file found!"
             exit 1
           fi
