@@ -12,20 +12,11 @@ jobs:
     steps:
       - name: Print OS version
         run: uname -a
-      - name: Check if Apache Tomcat is running
-        run: |
-          echo "Checking if Apache Tomcat is running..."
-          ps aux | grep tomcat
       - name: Print Apache Tomcat version
         run: |
           echo "Apache Tomcat Version:"
-          if ! command -v curl &> /dev/null
-          then
-              echo "curl not found, installing..."
-              sudo apt-get update && sudo apt-get install -y curl
-          fi
-          # Запит на локальний сервер для отримання інформації про Tomcat
-          curl -s http://localhost:8080/ | grep "Apache Tomcat"
+          # Перевірка версії Tomcat за допомогою команди dpkg
+          dpkg-query -l | grep tomcat
 
   # Друга робота: Доступ до даних
   print-db-server-versions:
