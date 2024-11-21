@@ -15,7 +15,9 @@ jobs:
       - name: Print Apache Tomcat version
         run: |
           echo "Apache Tomcat Version:"
-          apt-get update && apt-get install -y curl
+          # Для перевірки, чи Apache Tomcat встановлений, спробуємо перевірити наявність служби
+          sudo apt-get update
+          sudo apt-get install -y curl
           curl -s http://localhost:8080/ | grep "Apache Tomcat"
 
   # Друга робота: Доступ до даних
@@ -26,3 +28,4 @@ jobs:
         run: uname -a
       - name: Print PostgreSQL version
         run: psql --version
+
