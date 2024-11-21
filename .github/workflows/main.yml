@@ -3,7 +3,7 @@ name: Print Software Versions
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   # Перша робота: Обробка даних
